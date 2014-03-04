@@ -1,12 +1,9 @@
-﻿@{
-  Layout = "_layout.cshtml";
-}
-  <strong>
+﻿  <strong>
     Logs are 
     @foreach (dynamic f in @Model) {
       try
       {
-        <div>Log file <a href="logs/@f.Name">@f.Name</a></div>
+        <div>Log file <a href="@f.Type/@f.Name">@f.Name</a></div>
       }
       catch (Exception ex)
       {

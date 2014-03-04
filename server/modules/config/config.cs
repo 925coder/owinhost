@@ -22,7 +22,7 @@ namespace server.modules.config
 
       Get["/"] = p =>
       {
-        var configs = diRoot.GetFiles("*.config", SearchOption.AllDirectories).Select(f => new logFile { Path = f.FullName, Name = f.Name }).ToList();
+        var configs = diRoot.GetFiles("*.config", SearchOption.AllDirectories).Select(f => new ViewFile { Path = f.FullName, Name = f.Name }).ToList();
         return View["index.cshtml", configs];
       };
     }

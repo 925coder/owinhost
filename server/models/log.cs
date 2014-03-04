@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace server.models
 {
-  public class logFile
+  public class ViewFile
   {
     public string Name { get; set; }
     public string Path { get; set; }
+    public string Type { get; set; }
   }
 
   public class log

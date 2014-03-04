@@ -78,7 +78,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="views\config\index.cshtml">
+    <None Include="views\editor.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="views\_layout.cshtml">
@@ -92,7 +92,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="views\logs\index.cshtml">
+    <None Include="views\index.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -102,10 +102,22 @@
       <Name>library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="scripts\monokai_sublime.css" />
-    <Content Include="scripts\vs.css" />
+    <Folder Include="scripts\" />
+    <Folder Include="styles\" />
+    <Folder Include="views\config\" />
+    <Folder Include="views\logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\monokai_sublime.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\vs.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

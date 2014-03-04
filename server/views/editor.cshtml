@@ -1,0 +1,17 @@
+﻿@section styles {
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+}
+
+@section scripts {
+  <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+}
+
+<form method="post">
+  <pre contenteditable="true" name="edited">
+  <code>
+    @Model
+  </code>
+  </pre>
+  <input type="submit" value="Save"/>
+</form>
