@@ -19,6 +19,7 @@ namespace server
       XmlConfigurator.ConfigureAndWatch(new FileInfo("_trace.config"));
 
       var options = new StartOptions();
+
       options.Urls.Add("http://orange:8077");
       options.Urls.Add("http://localhost:8077");
       options.Urls.Add("http://*:8077");
