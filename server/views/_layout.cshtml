@@ -2,13 +2,19 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>ETM ETM ETM</title>
+  <title>ETM ETM ETM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/content/bootstrap.min.css">
+  <script src="~/content/jquery-2.1.0.min.js"></script>
+@*  <link rel="stylesheet" href="/content/bootstrap-theme.min.css">*@
+  <script src="/content/bootstrap.min.js"></script>
+
     @RenderSection("styles", required: false)
     @RenderSection("scripts", required:false)
 </head>
-<body>
+<body class="container">
   @try{ 
-    @RenderBody()
+@RenderBody()
   }
   catch (Exception ex)
   {

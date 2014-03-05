@@ -13,6 +13,7 @@ namespace server.modules.logging
   public class logs : NancyModule
   {
     IRootPathProvider rootPathProvider;
+    
     public logs(IRootPathProvider rootPathProvider)
     {
       this.rootPathProvider = rootPathProvider;
@@ -27,6 +28,7 @@ namespace server.modules.logging
       Get["{type}"] = p =>
       {
         string type = p.type;
+        this.Context.Trace.TraceLog.WriteLog(s => s.AppendLine("In logs module filetype=" + type));
 
         if (type.StartsWith("log"))
         {
@@ -37,7 +39,7 @@ namespace server.modules.logging
           type = "config";
         }
         var logs = diRoot.GetFiles("*." + type, SearchOption.AllDirectories).Select(f => new ViewFile { Path = f.FullName, Name = f.Name, Type = type }).ToList();
-        return View["index.cshtml", logs];
+        return View["filelist.cshtml", logs];
       };
 
       Get["{type}/{name}", ctx => !ctx.Request.Url.Path.EndsWith("css") && !ctx.Request.Url.Path.EndsWith(".js")] = p =>
