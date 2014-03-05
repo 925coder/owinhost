@@ -1,0 +1,17 @@
+﻿    <h1>The File list is </h1>
+<table class="table">
+ @foreach (dynamic f in @Model){
+    try
+    {
+    <tr>
+      <td><a href="@f.Type/@f.Name">@f.Name</a></td>
+      <td>@f.Path</td>
+      <td>@f.Type</td>
+    </tr>
+    }
+    catch (Exception ex)
+    {
+    <p>Error @ex.Message</p>
+    }
+}
+</table>
