@@ -10,6 +10,7 @@ using log4net;
 using log4net.Config;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace server
 {
@@ -39,9 +40,10 @@ namespace server
 
     private static void WatchViews()
     {
-      string viewsDebugFolder = @"C:\code\web\owinhost\server\views";
+      var currentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      var srcViewsFolder = Path.Combine(Regex.Replace(currentFolder, @"([/\\]bin)|([/\\]debug)", "", RegexOptions.IgnoreCase),"views");
 
-      FileSystemWatcher watcher = new FileSystemWatcher(viewsDebugFolder,"*html");
+      FileSystemWatcher watcher = new FileSystemWatcher(srcViewsFolder, "*html");
       watcher.IncludeSubdirectories = true;
       watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.Attributes;
 
@@ -54,13 +56,23 @@ namespace server
 
     static void watcher_Changed(object sender, FileSystemEventArgs e)
     {
-      var f = e.FullPath;
+      var path = e.FullPath;
+      var name = Path.GetFileName(path);
+
       var d = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       var views = Path.Combine(d, "views");
-      var dest = Path.Combine(d,"views",e.Name);
-      if (f.EndsWith("html"))
+      var dest = Path.Combine(d,"views",name);
+
+      if (path.EndsWith("html"))
       {
-        File.Copy(f,dest,true);
+        try
+        {
+          File.Copy(path,dest,true);
+        }
+        catch 
+        {
+          
+        }
       }
     }
   }
