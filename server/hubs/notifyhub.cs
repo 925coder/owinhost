@@ -9,9 +9,15 @@ namespace server.hubs
 {
   public class notifyhub : Hub
   {
+<<<<<<< HEAD
     public void Publish2Clients(string name, string message)
     {
       Clients.All.show(name, message);
+=======
+    public void Publih2Clients(string name, string message)
+    {
+      Clients.All.broadCast(name, message);
+>>>>>>> origin/master
     }
   }
 }
