@@ -11,6 +11,8 @@ using log4net.Config;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using server.hubs;
+using Microsoft.AspNet.SignalR;
 
 namespace server
 {
@@ -34,18 +36,29 @@ namespace server
       using (WebApp.Start<Startup>(options))
       {
         Logging.Log.Info("Starter server at : " + options.Urls.ToCsv());
-        Console.ReadKey();
+        string entered = "";
+        while (entered != "q")
+        {
+          Console.Write("enter a message to broadcast, 'q' to quit : ");
+          entered = Console.ReadLine();
+
+          var context = GlobalHost.ConnectionManager.GetHubContext<notifyhub>();
+          context.Clients.All.show("server",entered);
+        }
       }
     }
 
+    private static FileSystemWatcher watcher = new FileSystemWatcher();
     private static void WatchViews()
     {
       var currentFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       var srcViewsFolder = Path.Combine(Regex.Replace(currentFolder, @"([/\\]bin)|([/\\]debug)", "", RegexOptions.IgnoreCase),"views");
-
-      FileSystemWatcher watcher = new FileSystemWatcher(srcViewsFolder, "*html");
-      watcher.IncludeSubdirectories = true;
-      watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.Attributes;
+      //var srcViewsFolder = @"c:\";
+      watcher.Path = srcViewsFolder;
+      watcher.Filter = "*.cshtml";
+      //watcher = new FileSystemWatcher(srcViewsFolder,` "*html");
+      watcher.IncludeSubdirectories = false;
+      watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.Attributes | NotifyFilters.FileName | NotifyFilters.Size;
 
       watcher.Changed += watcher_Changed;
       watcher.Created += watcher_Changed;
@@ -81,6 +94,7 @@ namespace server
   {
     public void Configuration(IAppBuilder app)
     {
+      app.MapSignalR();
       app.UseNancy();
     }
   }

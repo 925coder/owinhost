@@ -1,4 +1,4 @@
-﻿    <h1>All files -  </h1>
+﻿<h1>All files here: </h1>
 <table class="table">
  @foreach (dynamic f in @Model){
     try
@@ -15,3 +15,20 @@
     }
 }
 </table>
+
+<script src="../content/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../content/jquery.signalR-2.0.2.min.js" type="text/javascript"></script>
+<script src="../content/bootstrap.min.js"></script>
+<script src="http://localhost:8077/signalr/hubs" type="text/javascript"></script>
+
+<script type="text/javascript">
+  $(function () {
+    alert("here");
+    $.connection.hub.url = "http://localhost:8077/signalr";
+    var notify = $.connection.notifyhub;
+
+    notify.client.show = function (name, message) {
+      alert(name + " says " + message);
+    }
+  });
+</script>
