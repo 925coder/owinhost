@@ -23,12 +23,15 @@
 
 <script type="text/javascript">
   $(function () {
-    alert("here");
     $.connection.hub.url = "http://localhost:8077/signalr";
     var notify = $.connection.notifyhub;
 
     notify.client.show = function (name, message) {
       alert(name + " says " + message);
     }
+
+    // Start the connection and request current state
+    $.connection.hub.start(function () {
+    });
   });
 </script>
