@@ -1,0 +1,27 @@
+﻿@{string currentServer = "uk-lon-w051";}
+@{string signalRurl = "http://" + @currentServer + ":8077/signalr";}
+<h1>Live log </h1>
+<div class="container">
+  <textarea id="jsonData">
+
+  </textarea>
+  <ul id="logs">
+
+  </ul>
+</div>
+<script type="text/javascript">
+  $(function () {
+
+    var notify = $.connection.log4netLogHub;
+
+    notify.client.addLog = function (logInfo) {
+      //alert(JSON.stringify(logInfo));
+      $('#jsonData').val(JSON.stringify(logInfo));
+    }
+
+    // Start the connection and request current state
+    $.connection.hub.start(function () {
+      console.log("started listening");
+    });
+  });
+</script>

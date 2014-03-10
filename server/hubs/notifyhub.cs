@@ -14,4 +14,9 @@ namespace server.hubs
       Clients.All.show(name, message);
     }
   }
+
+  public class log4netLogHub : Hub
+  {
+
+  }
 }

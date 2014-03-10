@@ -1,5 +1,6 @@
-﻿@{string client = "isaak";}
-
+﻿@*@{string currentServer = coder925.library.NetEx.GetCurrentHostName();}*@
+@{string currentServer = "uk-lon-w051";}
+@{string signalRurl = "http://" + @currentServer + ":8077/signalr";}
 <h1>All files here </h1>
 <table class="table">
   @foreach (dynamic f in @Model)
@@ -8,6 +9,7 @@
     {
       <tr>
         <td><a href="@f.Type/@f.Name">@f.Name</a></td>
+        <td><a href="@f.Type/@f.Name/live">live</a></td>
         <td>@f.Path</td>
         <td>@f.Type</td>
       </tr>
@@ -45,7 +47,7 @@
 
 <script type="text/javascript">
   $(function () {
-    $.connection.hub.url = "http://orange:8077/signalr";
+    $.connection.hub.url = "@signalRurl"
     var notify = $.connection.notifyhub;
 
     notify.client.show = function (name, message) {

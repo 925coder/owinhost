@@ -57,6 +57,12 @@ namespace server.modules.logging
           return View["editor.cshtml", content];
         };
 
+      Get["{type}/{name}/live", ctx => !ctx.Request.Url.Path.EndsWith("css") && !ctx.Request.Url.Path.EndsWith(".js")] = p =>
+      {
+        string path = Path.Combine(root, p.name);
+        return View["livelog.cshtml", path];
+      };
+
       Post["{type}/{name}"] = p =>
         {
           string s = this.Request.Form.edited;

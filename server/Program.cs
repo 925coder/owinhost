@@ -36,6 +36,10 @@ namespace server
       using (WebApp.Start<Startup>(options))
       {
         Logging.Log.Info("Starter server at : " + options.Urls.ToCsv());
+
+        var e = new Exception("something wrong has happened");
+        Logging.Log.Error("Exception", e);
+
         string entered = "";
         while (entered != "q")
         {
@@ -44,6 +48,7 @@ namespace server
 
           var context = GlobalHost.ConnectionManager.GetHubContext<notifyhub>();
           context.Clients.All.show("server",entered);
+          Logging.Log.Info(entered);
         }
       }
     }
@@ -94,7 +99,9 @@ namespace server
   {
     public void Configuration(IAppBuilder app)
     {
-      app.MapSignalR();
+      var hubConfig = new HubConfiguration();
+      hubConfig.EnableDetailedErrors = true;
+      app.MapSignalR(hubConfig);
       app.UseNancy();
     }
   }

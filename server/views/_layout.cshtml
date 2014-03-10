@@ -1,19 +1,22 @@
 ﻿<!DOCTYPE html>
 
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+@{string currentServer = "uk-lon-w051";}
   <title>ETM ETM ETM</title>
 
-  <script src="../content/jquery-2.1.0.min.js" type="text/javascript"></script>
+  <script src="~/content/jquery-2.1.0.min.js" type="text/javascript"></script>
   <script src="~/content/bootstrap.min.js"></script>
   <link href="~/content/bootstrap.css" rel="stylesheet" />
 
-  <script src="../content/jquery.signalR-2.0.2.min.js" type="text/javascript"></script>
-  <script src="http://orange:8077/signalr/hubs" type="text/javascript"></script>
+  <script src="~/content/jquery.signalR-2.0.2.min.js" type="text/javascript"></script>
+  <script src="http://@currentServer:8077/signalr/hubs" type="text/javascript"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+  <script type="text/javascript">
+    $.connection.hub.url = 'http://uk-lon-w051:8077/signalr';
+    $.connection.hub.logging = true;
+  </script>
     @RenderSection("styles", required: false)
     @RenderSection("scripts", required:false)
 </head>
