@@ -4,12 +4,16 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>ETM ETM ETM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/content/bootstrap.min.css">
-  <script src="~/content/jquery-2.1.0.min.js"></script>
-@*  <link rel="stylesheet" href="/content/bootstrap-theme.min.css">*@
-  <script src="/content/bootstrap.min.js"></script>
 
+  <script src="../content/jquery-2.1.0.min.js" type="text/javascript"></script>
+  <script src="~/content/bootstrap.min.js"></script>
+  <link href="~/content/bootstrap.css" rel="stylesheet" />
+
+  <script src="../content/jquery.signalR-2.0.2.min.js" type="text/javascript"></script>
+  <script src="http://orange:8077/signalr/hubs" type="text/javascript"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
     @RenderSection("styles", required: false)
     @RenderSection("scripts", required:false)
 </head>
@@ -22,5 +26,6 @@
     <p>Error @ex.Message</p>
   }
   
+
 </body>
 </html>
