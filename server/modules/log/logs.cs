@@ -57,8 +57,10 @@ namespace server.modules.logging
           {
             content = sr.ReadToEnd();
           }
-          //content = Nancy.Helpers.HttpUtility.HtmlEncode(content);
-          return View["editor.cshtml", content];
+
+          var filepath = f.Replace(@"\",@"\\");
+          
+          return View["editor.cshtml", new { content = content, filepath = filepath , operation = "edit"}];
         };
 
       Get["{type}/{name}/live", ctx => !ctx.Request.Url.Path.EndsWith("css") && !ctx.Request.Url.Path.EndsWith(".js")] = p =>
@@ -69,8 +71,11 @@ namespace server.modules.logging
 
       Post["{type}/{name}"] = p =>
         {
-          string s = this.Request.Form.edited;
-          return s;
+          string content = this.Request.Form.configText;
+          string path = this.Request.Form.filePath;
+          File.WriteAllText(path, content);
+
+          return View["editor.cshtml", new { content = content, filepath = path, operation = "done" }];
         };
 
 

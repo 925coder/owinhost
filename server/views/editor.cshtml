@@ -4,17 +4,44 @@
 
 @section scripts {
   <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
 }
 
-<form method="post">
-  Make changes and click on save
+@{
+  var filepath = Model.filepath;
+  var content = Model.content;
+  var operation = Model.operation;
+  
+  if (operation == "done")
+  {
+    <div class="alert alert-success alert-dismissable"> 
+      File @filepath saved successfully.
+    </div>
+  }
+}
+
+<form method="post" class="form">
+  <h2>Make changes and click on save</h2>
+  <input type="hidden" id="configText" name="configText" />
+  <input type="hidden" id="filePath" name="filePath" /> 
   <pre contenteditable="true" spellcheck="false">
   <code>
-@Model
+@content
   </code>
   </pre>
   <input type="submit" value="Save"/>
 </form>
+
+<script type="text/javascript">
+  $(function () {
+    $('form').submit(function (event) {
+      var t = $('code').text();
+      $('#filePath').val("@filepath");
+      $('#configText').val(t);
+    });
+  });
+</script>
 
 
