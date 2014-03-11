@@ -26,4 +26,16 @@ namespace server.models
     Error,
     Critical
   }
+
+  public class Application
+  {
+    public int Id { get; set; }
+    public string Url { get; set; }
+    public string AppName { get; set; }
+    public string UserName { get; set; }
+    public bool Running { get; set; }
+    public DateTime LastModified { get; set; }
+    public byte[] Version { get; set; }
+  }
+  
 }

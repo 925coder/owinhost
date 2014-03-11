@@ -1,0 +1,50 @@
+﻿<h2>Applications</h2>
+<table class="table table-striped table-bordered table-condensed" id="tableApplications">
+  <tr>
+    <th>Url</th>
+    <th>App</th>
+    <th>User</th>
+    <th>Running</th>
+    <th>Last Upated at</th>
+  </tr>
+  @foreach (var app in Model)
+  {
+    <tr>
+      <td>@app.Url</td>
+      <td>@app.AppName</td>
+      <td>@app.UserName</td>
+      <td>
+        @if (app.Running)
+        {
+          <input type="checkbox" checked disabled />
+        }
+        else
+        {
+          <input type="checkbox" disabled />
+        }
+      </td>
+      <td>@app.LastModified</td>
+    </tr>
+  }
+</table>
+
+<textarea class="form-control" rows="10" id="jsonData">
+
+</textarea>
+
+<script type="text/javascript">
+  $(function () {
+
+    var applicationConnect = $.connection.applicationConnectHub;
+
+    applicationConnect.client.updateApplicationList = function (applications) {
+      //alert(JSON.stringify(applications));
+      $('#jsonData').val(JSON.stringify(applications));
+    }
+
+    // Start the connection and request current state
+    $.connection.hub.start(function () {
+      console.log("started listening");
+    });
+  });
+</script>

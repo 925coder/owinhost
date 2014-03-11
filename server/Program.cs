@@ -36,7 +36,7 @@ namespace server
       using (WebApp.Start<Startup>(options))
       {
         Logging.Log.Info("Starter server at : " + options.Urls.ToCsv());
-
+        new Monitor().Start();
         var e = new Exception("something wrong has happened");
         Logging.Log.Error("Exception", e);
 

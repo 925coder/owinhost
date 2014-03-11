@@ -3,10 +3,14 @@ using Nancy.Responses;
 using server.models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Dapper;
 
 namespace server.modules.logging
 {
@@ -68,10 +72,26 @@ namespace server.modules.logging
           string s = this.Request.Form.edited;
           return s;
         };
-    
-      
 
+
+      Get["/"] = p =>
+        {
+          using (var conn = GetConnection())
+          {
+            var r = conn.Query<Application>("select * from applications").ToList();
+            return View["home.cshtml",r];
+          }
+        };
     
+    }
+
+    SqlConnection GetConnection()
+    {
+      var connstr = ConfigurationManager.ConnectionStrings["prototype"].ConnectionString;
+      var conn = new SqlConnection(connstr);
+      conn.Open();
+
+      return conn;
     }
   }
 }
